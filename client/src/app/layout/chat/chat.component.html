@@ -1,0 +1,45 @@
+
+    <h5 class="h5"> welcome {{username | uppercase}} enjoy chatting with your friends </h5>
+    <div class="col-md-8" style="float:left;">
+        <div>
+            <div >
+                <h4 class=" h4 " *ngIf="reciever==null">Choose user to  chat with </h4>
+                <h4 class= " h4" *ngIf="reciever!=null">chat with {{reciever.username |uppercase}}</h4>
+            </div>
+       
+        <div>
+            <div class="col-md-8" id="chatdiv">
+            <div *ngFor="let message of messages" >
+                <h6 *ngIf="message.from == userId">Me: {{message.message}}</h6>
+                <h6 *ngIf="message.from != userId">{{reciever.username | uppercase}}: {{message.message}}</h6>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-md-7">
+                <input type='text' [(ngModel)]="txtmessage" class='form-control ' placeholder='Enter your message here'>
+           
+            </div>
+            <div class="from-group col-md-2">
+         <button type="submit" class='btn btn-success'  (click)="sendMessage();">send</button></div>
+                 </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4" style="float:right;">
+    <div>
+        <div>users</div>
+        <div>
+            <ul class="list-group ">
+                <li class="list-group-item btn  btn-outline-success" (click)="sendtouser(user,true);" *ngFor="let user of onlineUsers">
+                    <img src='assets/images/online.png' height="15px" width="15px"/> &nbsp;&nbsp; {{user.username |uppercase}} 
+                </li>
+                 <li class="list-group-item  btn btn-outline-danger"  *ngFor="let user of offlineUsers" (click)="sendtouser(user,false);">
+                    <img src='assets/images/offline.png' height="15px" width="15px"/> &nbsp;&nbsp; {{user.username |uppercase}} 
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+

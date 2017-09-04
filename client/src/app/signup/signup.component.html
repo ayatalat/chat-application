@@ -1,0 +1,42 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row">
+        <div class="col-md-4 push-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>create account </h1>
+            <form role="form">
+                <div class="form-content">
+                      <div class='alert alert-danger' [hidden]="errorMsg==''">{{ errorMsg}}</div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-underline input-lg"  name='txtusername' placeholder="Enter your user name"  required [(ngModel)]="model.txtusername" #txtusername="ngModel">
+                    </div>
+                    <div *ngIf="txtusername.errors &&( txtusername.dirty|| txtusername.touched)" class="alert alert-danger">
+                          <label [hidden]="!txtusername.errors.required"> user name is required</label>
+                     </div>  
+                    <div class="form-group">
+                        <input type="email" class="form-control input-underline input-lg"  name='txtEmail' placeholder="Enter your email"  required [(ngModel)]="model.txtEmail" #txtEmail="ngModel">
+                    </div>
+                    <div *ngIf="txtEmail.errors &&( txtEmail.dirty|| txtEmail.touched)" class="alert alert-danger">
+                          <label [hidden]="!txtEmail.errors.required"> Email is required</label>
+                     </div>     
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg"  name='txtPassword' placeholder="Enter Password" required [(ngModel)]="model.txtPassword" #txtPassword="ngModel">
+                    </div>
+                    <div *ngIf="txtPassword.errors &&( txtPassword.dirty|| txtPassword.touched)" class="alert alert-danger">
+                         <label [hidden]="!txtPassword.errors.required">password is required</label>    
+                     </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" name='txtCpassword ' placeholder="confrim password" required [(ngModel)]="model.txtCpassword" #txtCpassword="ngModel" >
+                    </div>
+                     <div *ngIf=" !confrimpassword() &&( txtCpassword.dirty|| txtCpassword.touched)" class="alert alert-danger">
+                         <label [hidden]="confrimpassword()">password should equal  </label>     
+                    </div>
+                    
+                </div>
+                <a class="btn rounded-btn" (click)="onSubmit()"> Register </a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
