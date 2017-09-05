@@ -10,7 +10,9 @@ website :https://docs.mongodb.com/manual/installation/
 
 After installation :
     1-open the terminal 
+    
         run : sudo service mongod start 
+        
 Browse to chat Application directory 
 
     1-Get into the directory of server "chat-api"  open terminal 
