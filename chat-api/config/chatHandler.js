@@ -3,9 +3,9 @@ var Message = require('../models/message');
 var User = require('../models/user');
 module.exports = function (io) {
     var usersArr = [];
-    io.on('connection', clientSocket => {
+    io.on('connection', (clientSocket) => {
         console.log("new connection!!")
-        clientSocket.on('join', userInfo => {
+        clientSocket.on('join', (userInfo) => {
             clientSocket.userInfo = userInfo;
             // add user socket to users array
             usersArr.push(clientSocket);
@@ -35,7 +35,7 @@ module.exports = function (io) {
 
         })
 
-        clientSocket.on('onlinemessage', data => {
+        clientSocket.on('onlinemessage', (data) => {
             console.log(data);
             let message = new Message();
             message.message = data.message;
@@ -43,12 +43,12 @@ module.exports = function (io) {
             message.from = clientSocket.userInfo.id;
             message.save();
 
-            let recieverSocket = usersArr.find(user => user.userInfo.id == data.to)
+            let recieverSocket = usersArr.find(function (user){ user.userInfo.id == data.to})
             recieverSocket.emit("onlinemessage", message);
             clientSocket.emit("onlinemessage", message);
         })
        
-         clientSocket.on('offlinemessage', data => {
+         clientSocket.on('offlinemessage', (data) => {
             let message = new Message();
             message.message = data.message;
             message.to = data.to
