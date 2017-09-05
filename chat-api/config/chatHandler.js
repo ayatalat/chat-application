@@ -43,7 +43,7 @@ module.exports = function (io) {
             message.from = clientSocket.userInfo.id;
             message.save();
 
-            let recieverSocket = usersArr.find(function (user){ user.userInfo.id == data.to})
+            let recieverSocket = usersArr.find( (user)=> user.userInfo.id == data.to)
             recieverSocket.emit("onlinemessage", message);
             clientSocket.emit("onlinemessage", message);
         })

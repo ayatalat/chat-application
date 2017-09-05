@@ -20,6 +20,7 @@ app.use(cors())
 // connect to mongodb 
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/Chatdb')
+//mongoose.connect('mongodb://mongo/Chatdb')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
