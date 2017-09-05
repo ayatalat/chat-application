@@ -1,6 +1,7 @@
 Simple Chat Application
 
 To run the application you have to install :
+
 1- Nodejs and npm 
 website :https://docs.npmjs.com/getting-started/installing-node
 
