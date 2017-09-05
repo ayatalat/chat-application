@@ -18,7 +18,7 @@ module.exports = function (io) {
             clientSocket.emit("onlineUsers", onlineUsers)
 
 
-            // get offline users fitler database from onlineusers 
+            // get offline users by fitlering  all users in db from onlineusers 
             User.find({}, { "id": 1, "username": 1 }, (err, users) => {
                 users = users.map(user => ({ username: user.username, id: user._id }));
         
