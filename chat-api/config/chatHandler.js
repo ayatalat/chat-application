@@ -11,7 +11,8 @@ module.exports = function (io) {
             usersArr.push(clientSocket);
 
             //get onlineusers 
-            let onlineUsers = usersArr.map((user) => user.userInfo)
+            let onlineUsers = usersArr.map((user) => user.userInfo);
+             onlineUsers= Array.from(new Set(onlineUsers));
             // send  online users to all users 
             clientSocket.broadcast.emit("onlineUsers", onlineUsers);
             // send online users to logged user
@@ -22,12 +23,18 @@ module.exports = function (io) {
             User.find({}, { "id": 1, "username": 1 }, (err, users) => {
                 users = users.map(user => ({ username: user.username, id: user._id }));
         
-                let offlineUsers=users.filter(function (user) {
+               let offlineUsers=users.filter(function (user) {
                     return onlineUsers.filter(function (onlineuser) {
                         return onlineuser.id ==user.id;
                     }).length == 0
                 });
+              
+                   
+              /* let offlineUsers = users.filter(function(user) {
+    				return onlineUsers.indexOf(user.id) === -1;
+				});*/
 
+                 offlineUsers= Array.from(new Set(offlineUsers));
                 clientSocket.broadcast.emit("offlineUsers", offlineUsers);
                 clientSocket.emit("offlineUsers", offlineUsers);
             })
@@ -71,6 +78,7 @@ module.exports = function (io) {
            usersArr = usersArr.filter((user) => user.userInfo != clientSocket.userInfo);
             // remove user from online
             let onlineUsers = usersArr.map((user) => user.userInfo)
+             onlineUsers= Array.from(new Set(onlineUsers));
             clientSocket.broadcast.emit("onlineUsers", onlineUsers);
 
             User.find({}, { "id": 1, "username": 1 }, (err, users) => {
@@ -80,6 +88,7 @@ module.exports = function (io) {
                         return onlineuser.id ==user.id;
                     }).length == 0
                 });
+                offlineUsers= Array.from(new Set(offlineUsers));
               clientSocket.broadcast.emit("offlineUsers", offlineUsers);
                
             })
